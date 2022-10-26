@@ -1,0 +1,1 @@
+Methods for object detection generally fall into deep-learning-based approaches and are typically based on Convolutional Neural Networks (CNN).

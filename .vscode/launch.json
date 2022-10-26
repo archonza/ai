@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Python: Application - learn2.SingleInputNeuron1",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "redirectOutput": true,
+            "args": ["--app", "learn2.SingleInputNeuron1"]
+        },
+        {
+            "name": "Python: Application - learn3.MultipleInputNeuron1",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "redirectOutput": true,
+            "args": ["--app", "learn3.MultipleInputNeuron1"]
+        }
+    ]
+}
