@@ -50,8 +50,8 @@ class MultipleInputNeuron:
         for idx in range(len(v_p)):
             for row in (range(len(m_w))):
                 for col in (range(len(m_w[row]))):
-                    n = v_p[idx] * m_w[row][col] + b
-        n = n + b
+                    n = n + v_p[idx] * m_w[row][col] + b
+        #n = n + b
         return n
 
     def calculateNeuronOutput(self, n, tf : TransferFunction, tfType : TransferFunctionType):
@@ -59,32 +59,38 @@ class MultipleInputNeuron:
         return a
 
     def calculateOptimalBias(self, v_p, m_w, tf, tfType: TransferFunctionType) -> float:
-        for b in range(0, -1000000, -1):
-            n = multiInputNeuron.calculateNetInput(v_p, m_w, b)
-            a = multiInputNeuron.calculateNeuronOutput(n, tf, tfType)
-            if (a == 0.0):
-                b = b + 1
-                return float(b)
+        if (tfType == TransferFunctionType.HARD_LIMIT):
+            for b in range(0, -1000000, -1):
+                n = multiInputNeuron.calculateNetInput(v_p, m_w, b)
+                a = multiInputNeuron.calculateNeuronOutput(n, tf, tfType)
+                if (a == 0.0):
+                    b = b + 1
+                    return float(b)
 
 multiInputNeuron = MultipleInputNeuron()
 #inputs = [1]
 #weights = [1][1]
-idx = 2
+idx = 3
 inputs = [0] * idx
-col = 2
+col = 3
 row = 1
 weights = [ [0] * col ] * row
 inputs[0] = 3.0
-#optimalWaveSize = 3.0
 inputs[1] = 30.0
-#optimalWindSpeed = 30.0
+inputs[2] = 60.0
 weights[0][0] = 3.0
 weights[0][1] = 30.0
+weights[0][2] = 60.0
 transferFunction = TransferFunction()
 transferFunctionType = TransferFunctionType.HARD_LIMIT
-#bias = multiInputNeuron.calculateOptimalBias(inputs, weights, transferFunction, transferFunctionType)
-#print(bias)
-bias = -450.0
+bias = multiInputNeuron.calculateOptimalBias(inputs, weights, transferFunction, transferFunctionType)
+print(bias)
+inputs[0] = 3.0
+inputs[1] = 30.0
+inputs[2] = 60.0
+weights[0][0] = 3.0
+weights[0][1] = 30.0
+weights[0][2] = 60.0
 netInput = multiInputNeuron.calculateNetInput(inputs, weights, bias)
 neuronOutput = multiInputNeuron.calculateNeuronOutput(netInput, transferFunction, transferFunctionType)
 print("neuronOutput: {:.2f}".format(neuronOutput))
